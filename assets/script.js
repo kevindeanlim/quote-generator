@@ -1,9 +1,6 @@
-// you will have issues on github regarding the api not being https - so maybe find
-// another source that is https for api
-
 function btnQuoteFunc() {
   $.ajax({
-    url: 'http://api.forismatic.com/api/1.0/',
+    url: 'https://wisdomapi.herokuapp.com/v1/random',
     jsonp: 'jsonp',
     dataType: 'jsonp',
     data:{
@@ -13,12 +10,12 @@ function btnQuoteFunc() {
     },
     success: function(response) {
       // so that changes only happen once successful response
-      if (response.quoteAuthor) {
-      $('#givenAuthor')[0].innerHTML = "- " + response.quoteAuthor;
+      if (response.author.name) {
+      $('#givenAuthor')[0].innerHTML = "- " + response.author.name;
     } else {
       $('#givenAuthor')[0].innerHTML = "- unknown";
     };
-    $('#givenQuote')[0].innerHTML = response.quoteText;
+    $('#givenQuote')[0].innerHTML = response.content;
     $('#givenQuote, #givenAuthor, .fa-quote-left, .fa-quote-right').fadeIn(500);
     randomColors();
     }
@@ -64,8 +61,8 @@ $("#btnQuote").hover(function(){
 
 
 $(".tweetBtn").click( function(){
-  var addToURL = $('#givenQuote')[0].innerHTML + $('#givenAuthor')[0].innerHTML;
-  var tweetURL = "https://twitter.com/intent/tweet?hashtags=dopequotes&text="+addToURL;
+  var addToURL = $('#givenQuote')[0].innerHTML + " " + $('#givenAuthor')[0].innerHTML;
+  var tweetURL = "https://twitter.com/intent/tweet?hashtags=startupquotes&text="+addToURL;
   window.open(tweetURL);
 });
 
@@ -73,8 +70,4 @@ $(".tweetBtn").click( function(){
 // figure how to add json quotes from another page
 // see if you can get this on a motivational background for next project and make downloadable
 // make this a fortune cookie quote generator
-// screw it, if you can't fix the mouseover problem, leave it and move on. volume over quality to gain experience
-
-
-// may want to change to changing background images
-// also use an quote api to work this
+// if you can't fix the mouseover problem, leave it and move on. volume over quality to gain experience
